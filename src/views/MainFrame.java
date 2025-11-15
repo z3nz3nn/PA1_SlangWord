@@ -4,6 +4,9 @@ import views.components.MenuBar;
 import views.panels.*;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import controller.SlangManager;
+import model.SlangWord;
 
 public class MainFrame extends JFrame {
 
@@ -51,7 +54,57 @@ public class MainFrame extends JFrame {
         add(left, BorderLayout.WEST);
         add(center, BorderLayout.CENTER);
 
+        wireActions();
         setVisible(true);
+    }
+
+    private void wireActions() {
+        SlangManager sm = SlangManager.getInstance();
+
+        // Random button
+        randomPanel.btnRandom.addActionListener(e -> {
+            SlangWord sw = sm.getRandom();
+            if (sw != null) {
+                randomPanel.taResult.setText(sw.toString());
+            } else {
+                randomPanel.taResult.setText("No data loaded.");
+            }
+        });
+
+        // Search button
+        searchPanel.getSearchButton().addActionListener(e -> {
+            String query = searchPanel.getSearchField().getText();
+            String mode = (String) searchPanel.getModeComboBox().getSelectedItem();
+            if (mode == null) mode = "Slang";
+            if (query == null || query.trim().isEmpty()) return;
+
+            if (mode.equals("Slang")) {
+                java.util.Optional<SlangWord> res = sm.findBySlang(query.trim());
+                if (res.isPresent()) {
+                    SlangWord sw = res.get();
+                    definitionPanel.getSlangField().setText(sw.getSlang());
+                    definitionPanel.getDefinitionArea().setText(String.join(" | ", sw.getMeanings()));
+                    historyPanel.taHistory.append("Searched Slang: " + sw.getSlang() + System.lineSeparator());
+                } else {
+                    definitionPanel.getSlangField().setText(query.trim());
+                    definitionPanel.getDefinitionArea().setText("Not found");
+                    historyPanel.taHistory.append("Searched Slang: " + query.trim() + " (not found)" + System.lineSeparator());
+                }
+            } else { // Definition mode
+                java.util.List<SlangWord> list = sm.findByDefinitionContains(query.trim());
+                if (!list.isEmpty()) {
+                    // Show first in definition panel, and list all in history
+                    SlangWord first = list.get(0);
+                    definitionPanel.getSlangField().setText(first.getSlang());
+                    definitionPanel.getDefinitionArea().setText(String.join(" | ", first.getMeanings()));
+                    historyPanel.taHistory.append("Search Definition contains: '" + query.trim() + "' -> " + list.size() + " result(s)" + System.lineSeparator());
+                } else {
+                    definitionPanel.getSlangField().setText("");
+                    definitionPanel.getDefinitionArea().setText("No matches");
+                    historyPanel.taHistory.append("Search Definition contains: '" + query.trim() + "' (no matches)" + System.lineSeparator());
+                }
+            }
+        });
     }
 
     public SearchPanel getSearchPanel() {

@@ -10,13 +10,11 @@ public class HistoryPanel extends JPanel {
 
     public HistoryPanel() {
         setLayout(new BorderLayout());
+        setBorder(BorderFactory.createTitledBorder("Search History"));
 
         taHistory = new JTextArea();
         taHistory.setEditable(false);
 
-        btnClear = new JButton("Clear History");
-
         add(new JScrollPane(taHistory), BorderLayout.CENTER);
-        add(btnClear, BorderLayout.SOUTH);
     }
 }

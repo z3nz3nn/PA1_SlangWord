@@ -9,8 +9,7 @@ public class MenuBar extends JMenuBar {
     public JMenu menuTools;
     public JMenu menuQuiz;
 
-    public JMenuItem miSearchSlang;
-    public JMenuItem miSearchDefinition;
+    public JMenuItem miSearchDictionary;
     public JMenuItem miHistory;
 
     public JMenuItem miAdd;
@@ -26,12 +25,10 @@ public class MenuBar extends JMenuBar {
     public MenuBar() {
         // Search Menu
         menuSearch = new JMenu("Search");
-        miSearchSlang = new JMenuItem("Search by Slang");
-        miSearchDefinition = new JMenuItem("Search by Definition");
-        miHistory = new JMenuItem("History");
+        miSearchDictionary = new JMenuItem("Search in dictionary");
+        miHistory = new JMenuItem("Search History");
 
-        menuSearch.add(miSearchSlang);
-        menuSearch.add(miSearchDefinition);
+        menuSearch.add(miSearchDictionary);
         menuSearch.addSeparator();
         menuSearch.add(miHistory);
 

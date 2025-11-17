@@ -20,8 +20,6 @@ public class EditPanel extends JPanel {
         tfNewDefinition = new JTextField();
         add(tfNewDefinition);
 
-        btnEdit = new JButton("Save Changes");
         add(new JLabel());
-        add(btnEdit);
     }
 }

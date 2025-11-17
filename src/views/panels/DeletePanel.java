@@ -15,8 +15,6 @@ public class DeletePanel extends JPanel {
         tfSlang = new JTextField();
         add(tfSlang);
 
-        btnDelete = new JButton("Delete");
         add(new JLabel());
-        add(btnDelete);
     }
 }

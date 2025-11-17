@@ -1,9 +1,15 @@
 package model;
 
-public class Trie {
-    private final TrieNode root = new TrieNode();
+import java.io.Serializable;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
 
-    public void insert(String word, java.util.List<String> meanings) {
+public class Trie implements Serializable {
+    private static final long serialVersionUID = 1L;
+    private TrieNode root = new TrieNode();
+
+    public void insert(String word, String meaning) {
         if (word == null) return;
         String w = word.trim();
         if (w.isEmpty()) return;
@@ -12,29 +18,24 @@ public class Trie {
             node = node.children.computeIfAbsent(Character.toLowerCase(c), k -> new TrieNode());
         }
         node.isEndOfWord = true;
-        if (meanings != null) {
-            for (String m : meanings) {
-                if (m != null) {
-                    String t = m.trim();
-                    if (!t.isEmpty()) node.meanings.add(t);
-                }
-            }
+        if (meaning != null) {
+            node.meaning = meaning;
         }
     }
 
-    public java.util.List<String> searchExact(String word) {
-        if (word == null) return java.util.Collections.emptyList();
+    public String searchExact(String word) {
+        if (word == null) return null;
         TrieNode node = root;
         for (char c : word.trim().toCharArray()) {
             node = node.children.get(Character.toLowerCase(c));
-            if (node == null) return java.util.Collections.emptyList();
+            if (node == null) return null;
         }
-        if (node.isEndOfWord) return new java.util.ArrayList<>(node.meanings);
-        return java.util.Collections.emptyList();
+        if (node.isEndOfWord) return node.meaning;
+        return null;
     }
 
-    public java.util.List<SlangWord> startsWith(String prefix) {
-        java.util.List<SlangWord> result = new java.util.ArrayList<>();
+    public List<SlangWord> startsWith(String prefix) {
+        List<SlangWord> result = new ArrayList<>();
         if (prefix == null) return result;
         TrieNode node = root;
         String p = prefix.trim();
@@ -46,14 +47,32 @@ public class Trie {
         return result;
     }
 
-    private void dfs(TrieNode node, StringBuilder path, java.util.List<SlangWord> out) {
+    private void dfs(TrieNode node, StringBuilder path, List<SlangWord> out) {
         if (node.isEndOfWord) {
-            out.add(new SlangWord(path.toString(), new java.util.ArrayList<>(node.meanings)));
+            out.add(new SlangWord(path.toString(), node.meaning));
         }
-        for (java.util.Map.Entry<Character, TrieNode> e : node.children.entrySet()) {
+        for (Map.Entry<Character, TrieNode> e : node.children.entrySet()) {
             path.append(e.getKey());
             dfs(e.getValue(), path, out);
             path.deleteCharAt(path.length() - 1);
+        }
+    }
+
+    public void clear() {
+        root.children.clear();
+        root.isEndOfWord = false;
+        root.meaning = null;
+    }
+
+    public TrieNode getRoot() {
+        return root;
+    }
+
+    public void setRoot(TrieNode newRoot) {
+        if (newRoot == null) {
+            clear();
+        } else {
+            this.root = newRoot;
         }
     }
 }

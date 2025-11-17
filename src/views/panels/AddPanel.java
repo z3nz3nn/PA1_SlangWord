@@ -20,8 +20,6 @@ public class AddPanel extends JPanel {
         tfDefinition = new JTextField();
         add(tfDefinition);
 
-        btnAdd = new JButton("Add");
         add(new JLabel()); // empty space
-        add(btnAdd);
     }
 }

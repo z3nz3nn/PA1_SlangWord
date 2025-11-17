@@ -1,32 +1,47 @@
 package model;
 
+import java.util.List;
+
 public class SlangWord {
     private final String slang;
-    private final java.util.List<String> meanings;
+    private final String meaning;
 
-    public SlangWord(String slang, java.util.List<String> meanings) {
+    public SlangWord(String slang, String meaning) {
         this.slang = slang;
-        this.meanings = new java.util.ArrayList<>();
-        if (meanings != null) {
-            for (String m : meanings) {
-                if (m != null) {
-                    String t = m.trim();
-                    if (!t.isEmpty()) this.meanings.add(t);
-                }
-            }
-        }
+        this.meaning = meaning;
     }
 
     public String getSlang() {
         return slang;
     }
 
-    public java.util.List<String> getMeanings() {
-        return java.util.Collections.unmodifiableList(meanings);
+    public String getMeaning() {
+        StringBuilder formattedMeaning = new StringBuilder();
+        String[] meaningList = meaning.split("\\|", -1);
+        for (int i = 0; i < meaningList.length; i++) {
+            formattedMeaning.append((i + 1));
+            formattedMeaning.append(". ");
+            formattedMeaning.append(meaningList[i].trim());
+            if (i < meaningList.length - 1) {
+                formattedMeaning.append("\n");
+            }
+        }
+        return formattedMeaning.toString();
     }
 
     @Override
     public String toString() {
-        return slang + ": " + String.join(" | ", meanings);
+        StringBuilder formattedMeaning = new StringBuilder();
+        String[] meaningList = meaning.split("\\|", -1);
+        formattedMeaning.append("\n");
+        for (int i = 0; i < meaningList.length; i++) {
+            formattedMeaning.append((i + 1));
+            formattedMeaning.append(". ");
+            formattedMeaning.append(meaningList[i].trim());
+            if (i < meaningList.length - 1) {
+                formattedMeaning.append("\n");
+            }
+        }
+        return slang + ": " + formattedMeaning;
     }
 }

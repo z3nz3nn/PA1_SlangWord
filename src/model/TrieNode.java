@@ -1,7 +1,12 @@
 package model;
 
-public class TrieNode {
-    public java.util.Map<Character, TrieNode> children = new java.util.HashMap<>();
+import java.io.Serializable;
+import java.util.Map;
+import java.util.HashMap;
+
+public class TrieNode implements Serializable {
+    private static final long serialVersionUID = 1L;
+    public Map<Character, TrieNode> children = new HashMap<>();
     public boolean isEndOfWord = false;
-    public java.util.List<String> meanings = new java.util.ArrayList<>();
+    public String meaning;
 }

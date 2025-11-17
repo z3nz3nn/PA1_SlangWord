@@ -6,7 +6,6 @@ import java.awt.*;
 public class DeletePanel extends JPanel {
 
     public JTextField tfSlang;
-    public JButton btnDelete;
 
     public DeletePanel() {
         setLayout(new GridLayout(2, 2, 10, 10));

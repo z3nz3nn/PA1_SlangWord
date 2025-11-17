@@ -97,21 +97,6 @@ public class FileHandler {
         }
     }
 
-    @SuppressWarnings("unchecked")
-    public static Map<String, String> loadCache() {
-        File f = new File(CACHE_FILE);
-        if (!f.exists()) return null;
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f))) {
-            Object obj = ois.readObject();
-            if (obj instanceof Map) {
-                return (Map<String, String>) obj;
-            }
-        } catch (Exception e) {
-            System.err.println("Failed to load cache: " + e.getMessage());
-        }
-        return null;
-    }
-
     // Bundle both map and trie for faster startup (no re-indexing)
     public static void saveCacheBundle(Map<String, String> map, Trie trie) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(CACHE_FILE))) {

@@ -7,7 +7,6 @@ public class AddPanel extends JPanel {
 
     public JTextField tfSlang;
     public JTextField tfDefinition;
-    public JButton btnAdd;
 
     public AddPanel() {
         setLayout(new GridLayout(3, 2, 10, 10));

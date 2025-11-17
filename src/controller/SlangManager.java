@@ -10,7 +10,6 @@ public class SlangManager {
 
     private final Map<String, String> data = new LinkedHashMap<>();
     private final Trie trie = new Trie();
-    private final Random rnd = new Random();
     private String cachedDailyDate = null;
     private String cachedDailyKey = null;
 

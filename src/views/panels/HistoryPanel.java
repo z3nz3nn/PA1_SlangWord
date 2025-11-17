@@ -6,7 +6,6 @@ import java.awt.*;
 public class HistoryPanel extends JPanel {
 
     public JTextArea taHistory;
-    public JButton btnClear;
 
     public HistoryPanel() {
         setLayout(new BorderLayout());

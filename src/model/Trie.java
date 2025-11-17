@@ -34,19 +34,6 @@ public class Trie implements Serializable {
         return null;
     }
 
-    public List<SlangWord> startsWith(String prefix) {
-        List<SlangWord> result = new ArrayList<>();
-        if (prefix == null) return result;
-        TrieNode node = root;
-        String p = prefix.trim();
-        for (char c : p.toCharArray()) {
-            node = node.children.get(Character.toLowerCase(c));
-            if (node == null) return result;
-        }
-        dfs(node, new StringBuilder(p), result);
-        return result;
-    }
-
     private void dfs(TrieNode node, StringBuilder path, List<SlangWord> out) {
         if (node.isEndOfWord) {
             out.add(new SlangWord(path.toString(), node.meaning));

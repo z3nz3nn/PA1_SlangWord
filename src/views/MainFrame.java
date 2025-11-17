@@ -1,5 +1,6 @@
 package views;
 
+import controller.FileHandler;
 import views.components.MenuBar;
 import views.components.ConfirmDialog;
 import views.panels.*;
@@ -93,8 +94,8 @@ public class MainFrame extends JFrame {
                 }
                 boolean overwrite = true;
                 if (sm.contains(slang.trim())) {
-                    boolean confirm = ConfirmDialog.show("Duplicate Slang", "Slang exists. Overwrite? Click No to append as duplicate.");
-                    overwrite = confirm; // yes -> overwrite, no -> duplicate
+                    overwrite = ConfirmDialog.show("Duplicate Slang", "Slang exists. Overwrite? Click No to append as duplicate.");
+                    // yes -> overwrite, no -> duplicate
                 }
                 sm.addOrUpdate(slang.trim(), def.trim(), overwrite);
                 System.out.println("Added/Updated: " + slang.trim());
@@ -287,41 +288,5 @@ public class MainFrame extends JFrame {
             }
         };
         searchPanel.getModeComboBox().addActionListener(modeListener);
-    }
-
-    public SearchPanel getSearchPanel() {
-        return searchPanel;
-    }
-
-    public DefinitionPanel getDefinitionPanel() {
-        return definitionPanel;
-    }
-
-    public HistoryPanel getHistoryPanel() {
-        return historyPanel;
-    }
-
-    public RandomPanel getRandomPanel() {
-        return randomPanel;
-    }
-
-    public AddPanel getAddPanel() {
-        return addPanel;
-    }
-
-    public EditPanel getEditPanel() {
-        return editPanel;
-    }
-
-    public DeletePanel getDeletePanel() {
-        return deletePanel;
-    }
-
-    public QuizSlangPanel getQuizSlangPanel() {
-        return quizSlangPanel;
-    }
-
-    public QuizDefinitionPanel getQuizDefinitionPanel() {
-        return quizDefinitionPanel;
     }
 }

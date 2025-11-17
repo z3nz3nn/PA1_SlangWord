@@ -1,6 +1,5 @@
 package views;
 
-import controller.FileHandler;
 import views.components.MenuBar;
 import views.components.ConfirmDialog;
 import views.panels.*;

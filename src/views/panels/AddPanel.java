@@ -9,7 +9,7 @@ public class AddPanel extends JPanel {
     public JTextField tfDefinition;
 
     public AddPanel() {
-        setLayout(new GridLayout(3, 2, 10, 10));
+        setLayout(new GridLayout(2, 2, 10, 10));
 
         add(new JLabel("Slang:"));
         tfSlang = new JTextField();
@@ -18,7 +18,5 @@ public class AddPanel extends JPanel {
         add(new JLabel("Definition:"));
         tfDefinition = new JTextField();
         add(tfDefinition);
-
-        add(new JLabel()); // empty space
     }
 }

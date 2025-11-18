@@ -9,7 +9,7 @@ public class EditPanel extends JPanel {
     public JTextField tfNewDefinition;
 
     public EditPanel() {
-        setLayout(new GridLayout(3, 2, 10, 10));
+        setLayout(new GridLayout(2, 2, 10, 10));
 
         add(new JLabel("Slang to edit:"));
         tfSlang = new JTextField();
@@ -18,7 +18,5 @@ public class EditPanel extends JPanel {
         add(new JLabel("New Definition:"));
         tfNewDefinition = new JTextField();
         add(tfNewDefinition);
-
-        add(new JLabel());
     }
 }

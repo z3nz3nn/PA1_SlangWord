@@ -8,12 +8,11 @@ public class DeletePanel extends JPanel {
     public JTextField tfSlang;
 
     public DeletePanel() {
-        setLayout(new GridLayout(2, 2, 10, 10));
+        setLayout(new GridLayout(1, 2, 10, 10));
 
         add(new JLabel("Slang to delete:"));
         tfSlang = new JTextField();
         add(tfSlang);
 
-        add(new JLabel());
     }
 }
